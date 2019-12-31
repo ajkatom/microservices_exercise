@@ -4,6 +4,8 @@ services:
     build: './listing-service'
     depends_on:
       - listing-service-db
+    ports:
+      - '7100:7100'
     environment:
       - DB_URI=mysql://root:password@listing-service-db/db?charset=UTF8
     volumes:
@@ -21,6 +23,8 @@ services:
     build: './users-service'
     depends_on:
       - users-service-db
+    ports:
+      - '7101:7101'
     environment:
       - DB_URI=mysql://root:password@users-service-db/db?charset=UTF8
     volumes:
