@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const accessEnv = require('#root/helpers/accessEnv');
+const accessEnv = require('../helpers/accessEnv');
 
 const DB_URI = accessEnv('DB_URI');
 

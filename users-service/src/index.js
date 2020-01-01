@@ -1,3 +1,3 @@
 const babel = require('@babel/polyfill');
-const conn = require('#root/db/connection');
-const server = require('#root/server/startServer');
+const conn = require('./db/connection');
+const server = require('./server/startServer');
