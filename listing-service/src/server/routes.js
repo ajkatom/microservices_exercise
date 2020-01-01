@@ -1,4 +1,4 @@
-const { Listing } = require('#root/db/models');
+const { Listing } = require('../db/models');
 
 const setRoutes = app => {
   app.get('/listings', async (req, res, next) => {
