@@ -19,6 +19,10 @@ app.use(
 
 setRoutes(app);
 
+app.use((err, req, res, next) =>
+  res.status(err.status || 500).send(err.message || 'Internal server error.')
+);
+
 app.listen(PORT, '0.0.0.0', () => {
   console.info(`users server listining on port ${PORT}`);
 });
