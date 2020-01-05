@@ -6,10 +6,12 @@ const express = require('express');
 const accessEnv = require('../helpers/accessEnv');
 const resolvers = require('../graphql/resolvers').default;
 const typeDefs = require('../graphql/typeDefs').default;
+const graphQLErrorHandler = require('../server/graphqlErrors').default;
 
 const PORT = accessEnv('PORT', 7000);
 
 const apolloServer = new ApolloServer({
+  formatError: graphQLErrorHandler,
   resolvers,
   typeDefs,
 });
