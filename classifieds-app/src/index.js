@@ -1,8 +1,11 @@
 import { render } from 'react-dom';
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { ApolloProvider } from 'react-apollo';
 
 import Root from '#root/components/Root';
+import * as theme from './theme';
+import graphqlClient from '#root/api/graphqlClient';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Gelasio:400,700&display=swap');
@@ -19,9 +22,11 @@ body{
 `;
 
 render(
-  <>
-    <GlobalStyle />
-    <Root />
-  </>,
+  <ApolloProvider client={graphqlClient}>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Root />
+    </ThemeProvider>
+  </ApolloProvider>,
   document.getElementById('app')
 );

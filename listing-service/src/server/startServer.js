@@ -1,8 +1,8 @@
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const express = require('express');
-const accessEnv = require('../helpers/accessEnv');
-const setRoutes = require('./routes').default;
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import express from 'express';
+import accessEnv from '#root/helpers/accessEnv';
+import setRoutes from './routes';
 
 const PORT = accessEnv('PORT', 7100);
 

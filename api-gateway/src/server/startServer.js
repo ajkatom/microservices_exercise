@@ -1,16 +1,17 @@
-const { ApolloServer } = require('apollo-server-express');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const express = require('express');
+import { ApolloServer } from 'apollo-server-express';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import express from 'express';
 
-const accessEnv = require('../helpers/accessEnv');
-const resolvers = require('../graphql/resolvers').default;
-const typeDefs = require('../graphql/typeDefs').default;
-const graphQLErrorHandler = require('../server/graphqlErrors').default;
+import accessEnv from '#root/helpers/accessEnv';
+import resolvers from '#root/graphql/resolvers';
+import typeDefs from '#root/graphql/typeDefs';
+import graphQLErrorHandler from '#root/server/graphqlErrors';
 
 const PORT = accessEnv('PORT', 7000);
 
 const apolloServer = new ApolloServer({
+  context: a => a,
   formatError: graphQLErrorHandler,
   resolvers,
   typeDefs,

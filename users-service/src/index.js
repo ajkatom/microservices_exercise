@@ -1,3 +1,3 @@
-const babel = require('@babel/polyfill');
-const conn = require('./db/connection');
-const server = require('./server/startServer');
+import babel from '@babel/polyfill';
+import conn from '#root/db/connection';
+import server from '#root/server/startServer';

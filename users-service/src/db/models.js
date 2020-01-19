@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require('sequelize');
-const conn = require('./connection');
+import { Model, DataTypes } from 'sequelize';
+import conn from './connection';
 
 export class User extends Model {}
 User.init(
@@ -51,7 +51,7 @@ UserSession.init(
     },
   },
   {
-    modelName: 'userSession',
+    modelName: 'userSessions',
     paranoid: false,
     sequelize: conn,
     updatedAt: false,

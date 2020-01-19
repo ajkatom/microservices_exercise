@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
 const graphQLErrorHandler = error => {
   const errorDetails = _.get(error, 'originalError.response.body');

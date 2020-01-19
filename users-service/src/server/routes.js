@@ -1,8 +1,39 @@
-const { User } = require('../db/models');
-const generateUUID = require('../helpers/generateUUID');
-const hashPassword = require('../helpers/hashPassword');
+import addHours from 'date-fns/addHours';
+import { User, UserSession } from '#root/db/models';
+import authentication from '#root/helpers/authentication';
+import generateUUID from '#root/helpers/generateUUID';
+import hashPassword from '#root/helpers/hashPassword';
+
+const userSessionTimeLimitHrs = 1;
 
 const setRoutes = app => {
+  app.post('/sessions', async (req, res, next) => {
+    if (!req.body.email || !req.body.password) {
+      return next(new Error('!invalid body!'));
+    }
+
+    try {
+      const user = await User.findOne({ attributes: {}, where: { email: req.body.email } });
+      if (!user) return next(new Error('invalid email'));
+
+      if (!authentication(req.body.password, user.passwordHash)) {
+        return next(new Error('invalid password!'));
+      }
+      const expiresAt = addHours(new Date(), userSessionTimeLimitHrs);
+      const sessionId = generateUUID();
+
+      const userSession = await UserSession.create({
+        expiresAt: expiresAt,
+        id: sessionId,
+        userId: user.id,
+      });
+      console.log(userSession);
+      return res.json(userSession);
+    } catch (e) {
+      return next(e);
+    }
+  });
+
   app.post('/users', async (req, res, next) => {
     if (!req.body.email || !req.body.password) {
       return next(new Error('invalid body!'));
@@ -16,6 +47,16 @@ const setRoutes = app => {
       });
 
       return res.json(newUser);
+    } catch (e) {
+      return next(e);
+    }
+  });
+
+  app.get(`/users/:userId`, async (req, res, next) => {
+    try {
+      const user = await User.findByPk(req.params.userId);
+      if (!user) return new Error('invalid user ID');
+      return res.json(user);
     } catch (e) {
       return next(e);
     }
