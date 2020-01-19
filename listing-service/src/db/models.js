@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require('sequelize');
-const conn = require('./connection');
+import { Model, DataTypes } from 'sequelize';
+import conn from './connection';
 
 export class Listing extends Model {}
 

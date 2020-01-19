@@ -1,2 +1,2 @@
-const babel = require('@babel/polyfill');
-const server = require('./server/startServer');
+import babel from '@babel/polyfill';
+import server from './server/startServer';
