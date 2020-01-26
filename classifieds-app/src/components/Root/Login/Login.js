@@ -26,8 +26,8 @@ const LoginButton = styled.button`
 `;
 
 const mutation = gql`
-  mutation createUserSession($email: String!, $password: String!) {
-    createUserSession(input: { email: $email, passowrd: $password }) {
+  mutation($email: String!, $password: String!) {
+    createUserSession(email: $email, password: $password) {
       id
       user {
         id
@@ -38,14 +38,22 @@ const mutation = gql`
 `;
 
 const Login = () => {
+  const [createUserSession] = useMutation(mutation);
   const {
     formState: { isSubmitting },
     handleSubmit,
     register,
   } = useForm();
 
-  const onSubmit = handleSubmit(({ email, password }) => {
-    console.log(email, password);
+  const onSubmit = handleSubmit(async ({ email, password }) => {
+    const result = await createUserSession({
+      variables: {
+        email,
+        password,
+      },
+    });
+
+    console.log(result);
   });
   return (
     <form onSubmit={onSubmit}>

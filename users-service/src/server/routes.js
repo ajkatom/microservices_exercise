@@ -27,7 +27,17 @@ const setRoutes = app => {
         id: sessionId,
         userId: user.id,
       });
-      console.log(userSession);
+
+      return res.json(userSession);
+    } catch (e) {
+      return next(e);
+    }
+  });
+
+  app.get('/sessions/:sessionId', async (req, res, next) => {
+    try {
+      const userSession = await UserSession.findByPk(req.params.sessionId);
+      if (!userSession) return new Error('invalid session id');
       return res.json(userSession);
     } catch (e) {
       return next(e);

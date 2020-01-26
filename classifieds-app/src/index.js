@@ -1,11 +1,14 @@
+import '@babel/polyfill';
 import { render } from 'react-dom';
 import React from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { ApolloProvider } from 'react-apollo';
+import { Provider } from 'react-redux';
 
 import Root from '#root/components/Root';
 import * as theme from './theme';
 import graphqlClient from '#root/api/graphqlClient';
+import store from '../redux';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Gelasio:400,700&display=swap');
@@ -22,11 +25,13 @@ body{
 `;
 
 render(
-  <ApolloProvider client={graphqlClient}>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Root />
-    </ThemeProvider>
-  </ApolloProvider>,
+  <Provider store={store}>
+    <ApolloProvider client={graphqlClient}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Root />
+      </ThemeProvider>
+    </ApolloProvider>
+  </Provider>,
   document.getElementById('app')
 );
