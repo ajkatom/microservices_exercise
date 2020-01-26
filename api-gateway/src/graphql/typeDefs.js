@@ -24,6 +24,7 @@ const typeDefs = gql`
   }
   type Query {
     listings: [Listing!]!
+    userSession(me: Boolean!): UserSession
   }
 `;
 export default typeDefs;
