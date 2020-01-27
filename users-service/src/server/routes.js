@@ -43,6 +43,16 @@ const setRoutes = app => {
       return next(e);
     }
   });
+  app.delete('/sessions/:sessionId', async (req, res, next) => {
+    try {
+      const userSession = await UserSession.findByPk(req.params.sessionId);
+      if (!userSession) return new Error('invalid session id');
+      await userSession.destroy();
+      return res.end();
+    } catch (e) {
+      return next(e);
+    }
+  });
 
   app.post('/users', async (req, res, next) => {
     if (!req.body.email || !req.body.password) {
