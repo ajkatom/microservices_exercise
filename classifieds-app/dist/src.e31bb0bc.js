@@ -65051,7 +65051,41 @@ var _reactRedux = require("react-redux");
 
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
+var _reactHooks = require("@apollo/react-hooks");
+
+var _graphqlTag = _interopRequireDefault(require("graphql-tag"));
+
+var _session = require("../../../../../redux/ducks/session");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  mutation($sessionId: ID!) {\n    deleteUserSession(sessionId: $sessionId)\n  }\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  color: blue;\n  display: block;\n  margin-top: 0.25rem;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject2() {
   var data = _taggedTemplateLiteral(["\n  color: ", ";\n  font-size: 1rem;\n  margin-top: 0.25rem;\n"]);
@@ -65083,16 +65117,37 @@ var Email = _styledComponents.default.div(_templateObject2(), function (props) {
   return props.theme.nero;
 });
 
+var LogoutLink = _styledComponents.default.a.attrs({
+  href: '#'
+})(_templateObject3());
+
+var mutation = (0, _graphqlTag.default)(_templateObject4());
+
 var Account = function Account() {
+  var _useMutation = (0, _reactHooks.useMutation)(mutation),
+      _useMutation2 = _slicedToArray(_useMutation, 1),
+      deleteUserSession = _useMutation2[0];
+
   var session = (0, _reactRedux.useSelector)(function (state) {
     return state.session;
   });
-  return _react.default.createElement(Warpper, null, "Logged in as:", _react.default.createElement(Email, null, session.user.email));
+  var dispatch = (0, _reactRedux.useDispatch)();
+  return _react.default.createElement(Warpper, null, "Logged in as:", _react.default.createElement(Email, null, session.user.email), _react.default.createElement(LogoutLink, {
+    onClick: function onClick(e) {
+      e.preventDefault();
+      dispatch((0, _session.clearSession)());
+      deleteUserSession({
+        variables: {
+          sessionId: session.id
+        }
+      });
+    }
+  }, "Logout"));
 };
 
 var _default = Account;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/Root/AccountDetails/Account/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","@apollo/react-hooks":"../node_modules/@apollo/react-hooks/lib/react-hooks.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js","../../../../../redux/ducks/session":"../redux/ducks/session.js"}],"components/Root/AccountDetails/Account/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -65714,7 +65769,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63204" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60744" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
