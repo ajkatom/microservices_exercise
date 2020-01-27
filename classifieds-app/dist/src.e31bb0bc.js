@@ -63200,6 +63200,7 @@ var _default = sessionReducer;
 exports.default = _default;
 
 var setSession = function setSession(session) {
+  console.log('xxxxx');
   return {
     session: session,
     type: SET
@@ -64883,6 +64884,8 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _reactRedux = require("react-redux");
+
 var _reactHookForm = require("react-hook-form");
 
 var _reactHooks = require("@apollo/react-hooks");
@@ -64892,6 +64895,8 @@ var _graphqlTag = _interopRequireDefault(require("graphql-tag"));
 var _styledComponents = _interopRequireDefault(require("styled-components"));
 
 var _TextInput = _interopRequireDefault(require("#root/components/Root/sharedComponents/TextInput"));
+
+var _session = require("../../../../redux/ducks/session");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64958,6 +64963,8 @@ var LoginButton = _styledComponents.default.button(_templateObject3());
 var mutation = (0, _graphqlTag.default)(_templateObject4());
 
 var Login = function Login() {
+  var dispatch = (0, _reactRedux.useDispatch)();
+
   var _useMutation = (0, _reactHooks.useMutation)(mutation),
       _useMutation2 = _slicedToArray(_useMutation, 1),
       createUserSession = _useMutation2[0];
@@ -64973,7 +64980,8 @@ var Login = function Login() {
     var _ref2 = _asyncToGenerator(
     /*#__PURE__*/
     regeneratorRuntime.mark(function _callee(_ref) {
-      var email, password, result;
+      var email, password, _ref3, newSession;
+
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -64988,10 +64996,11 @@ var Login = function Login() {
               });
 
             case 3:
-              result = _context.sent;
-              console.log(result);
+              _ref3 = _context.sent;
+              newSession = _ref3.data.createUserSession;
+              dispatch((0, _session.setSession)(newSession));
 
-            case 5:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -65023,7 +65032,7 @@ var Login = function Login() {
 
 var _default = Login;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-hook-form":"../node_modules/react-hook-form/dist/react-hook-form.es.js","@apollo/react-hooks":"../node_modules/@apollo/react-hooks/lib/react-hooks.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","#root/components/Root/sharedComponents/TextInput":"components/Root/sharedComponents/TextInput.js"}],"components/Root/Login/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-hook-form":"../node_modules/react-hook-form/dist/react-hook-form.es.js","@apollo/react-hooks":"../node_modules/@apollo/react-hooks/lib/react-hooks.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","#root/components/Root/sharedComponents/TextInput":"components/Root/sharedComponents/TextInput.js","../../../../redux/ducks/session":"../redux/ducks/session.js"}],"components/Root/Login/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
