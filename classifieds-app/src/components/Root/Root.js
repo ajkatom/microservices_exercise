@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import graphqlClient from '#root/api/graphqlClient';
 import { setSession } from '../../../redux/ducks/session';
 import AccountDetails from './AccountDetails/AccountDetails';
+import Listings from './Listings';
 
 const query = gql`
   {
@@ -48,15 +49,17 @@ const Root = () => {
     graphqlClient.query({ query }).then(({ data }) => {
       if (data.userSession) {
         dispatch(setSession(data.userSession));
-        setInitialised(true);
       }
+      setInitialised(true);
     });
   }, []);
   if (!initialised) return 'loading....';
   return (
     <Wraper>
       <Container>
-        <Content>heart beat</Content>
+        <Content>
+          <Listings />
+        </Content>
         <Sidebar>
           <AccountDetails />
         </Sidebar>

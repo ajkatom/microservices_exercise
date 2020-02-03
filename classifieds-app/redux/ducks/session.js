@@ -16,7 +16,6 @@ const sessionReducer = (state = DEFAULT_STATE, action = {}) => {
 export default sessionReducer;
 
 export const setSession = session => {
-  console.log('xxxxx');
   return { session, type: SET };
 };
 
