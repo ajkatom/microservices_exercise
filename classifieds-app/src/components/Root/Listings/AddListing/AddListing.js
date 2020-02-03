@@ -28,7 +28,7 @@ const LabelText = styled.strong`
 `;
 
 const Form = styled.form`
-  background-color: ${props => props.theme.whiteSmoke};
+  background-color: ${props => props.theme.platinum};
   margin-top: 1rem;
   padding: 1rem;
 `;
