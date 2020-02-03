@@ -65,11 +65,11 @@ const SignUp = ({ onChangeToLogin: pushChangeToLogin }) => {
     <form onSubmit={onSubmit}>
       <Label>
         <LabelText>Email</LabelText>
-        <TextIntput disabled={isSubmitting} name="email" type="email" ref={register} />
+        <Textinput disabled={isSubmitting} name="email" type="email" ref={register} />
       </Label>
       <Label>
         <LabelText>Password</LabelText>
-        <TextIntput disabled={isSubmitting} name="password" type="password" ref={register} />
+        <Textinput disabled={isSubmitting} name="password" type="password" ref={register} />
       </Label>
       <Label>
         <LabelText>Confrim Password</LabelText>

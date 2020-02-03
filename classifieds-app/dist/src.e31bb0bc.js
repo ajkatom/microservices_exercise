@@ -75829,12 +75829,12 @@ var SignUp = function SignUp(_ref) {
   }());
   return _react.default.createElement("form", {
     onSubmit: onSubmit
-  }, _react.default.createElement(Label, null, _react.default.createElement(LabelText, null, "Email"), _react.default.createElement(TextIntput, {
+  }, _react.default.createElement(Label, null, _react.default.createElement(LabelText, null, "Email"), _react.default.createElement(_Textinput.default, {
     disabled: isSubmitting,
     name: "email",
     type: "email",
     ref: register
-  })), _react.default.createElement(Label, null, _react.default.createElement(LabelText, null, "Password"), _react.default.createElement(TextIntput, {
+  })), _react.default.createElement(Label, null, _react.default.createElement(LabelText, null, "Password"), _react.default.createElement(_Textinput.default, {
     disabled: isSubmitting,
     name: "password",
     type: "password",
@@ -76055,7 +76055,7 @@ var Label = _styledComponents.default.label(_templateObject2());
 var LabelText = _styledComponents.default.strong(_templateObject3());
 
 var Form = _styledComponents.default.form(_templateObject4(), function (props) {
-  return props.theme.whiteSmoke;
+  return props.theme.platinum;
 });
 
 var mutation = (0, _graphqlTag.default)(_templateObject5());
@@ -76402,7 +76402,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.whiteSmoke = exports.nero = exports.mortar = exports.veryLightgrey = void 0;
+exports.platinum = exports.whiteSmoke = exports.nero = exports.mortar = exports.veryLightgrey = void 0;
 var veryLightgrey = '#cccccc';
 exports.veryLightgrey = veryLightgrey;
 var mortar = '#555555';
@@ -76411,6 +76411,8 @@ var nero = '#222222';
 exports.nero = nero;
 var whiteSmoke = 'F8F8F8';
 exports.whiteSmoke = whiteSmoke;
+var platinum = '#E5E4E2';
+exports.platinum = platinum;
 },{}],"../node_modules/redux-devtools-extension/index.js":[function(require,module,exports) {
 "use strict";
 
