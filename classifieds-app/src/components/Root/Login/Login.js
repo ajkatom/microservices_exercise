@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 
-import TextIntput from '#root/components/Root/sharedComponents/TextInput';
+import Textinput from '#root/components/Root/sharedComponents/Textinput';
 import { setSession } from '../../../../redux/ducks/session';
 
 const Label = styled.label`
@@ -26,6 +26,10 @@ const LoginButton = styled.button`
   display: inline-block;
   margin-top: 0.5rem;
 `;
+const SignUpButton = styled.button`
+  display: inline-block;
+  margin-top: 0.5rem;
+`;
 
 const mutation = gql`
   mutation($email: String!, $password: String!) {
@@ -39,7 +43,7 @@ const mutation = gql`
   }
 `;
 
-const Login = () => {
+const Login = ({ onChangeToSignUp: pushChangeToSignUp }) => {
   const dispatch = useDispatch();
   const [createUserSession] = useMutation(mutation);
   const {
@@ -63,15 +67,24 @@ const Login = () => {
     <form onSubmit={onSubmit}>
       <Label>
         <LabelText>Email</LabelText>
-        <TextIntput disabled={isSubmitting} name="email" type="email" ref={register} />
+        <Textinput disabled={isSubmitting} name="email" type="email" ref={register} />
       </Label>
       <Label>
         <LabelText>Password</LabelText>
-        <TextIntput disabled={isSubmitting} name="password" type="password" ref={register} />
+        <Textinput disabled={isSubmitting} name="password" type="password" ref={register} />
       </Label>
       <LoginButton disabled={isSubmitting} type="submit">
         Login
       </LoginButton>
+      <SignUpButton
+        href="#"
+        onClick={e => {
+          e.preventDefault();
+          pushChangeToSignUp();
+        }}
+      >
+        Sign Up
+      </SignUpButton>
     </form>
   );
 };
