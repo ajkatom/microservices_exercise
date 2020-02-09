@@ -1,21 +1,24 @@
-version: '3'
+version: "3"
 services:
   api-gateway:
-    build: './api-gateway'
-    depends_on: 
+    build: "./api-gateway"
+    depends_on:
       - listing-service
       - users-service
-    ports: 
-      - '7000:7000'
-    volumes: 
+    ports:
+      - "7000:7000"
+    volumes:
       - ./api-gateway:/opt/app
-      
+    environment:
+      - LISTING_SERVICE_URI=http://listing-service:7100
+      - USERS_SERVICE_URI=http://users-service:7101
+
   listing-service:
-    build: './listing-service'
+    build: "./listing-service"
     depends_on:
       - listing-service-db
     ports:
-      - '7100:7100'
+      - "7100:7100"
     environment:
       - DB_URI=mysql://root:password@listing-service-db/db?charset=UTF8
     volumes:
@@ -30,11 +33,11 @@ services:
       - 0.0.0.0:7200:3306
 
   users-service:
-    build: './users-service'
+    build: "./users-service"
     depends_on:
       - users-service-db
     ports:
-      - '7101:7101'
+      - "7101:7101"
     environment:
       - DB_URI=mysql://root:password@users-service-db/db?charset=UTF8
     volumes:
