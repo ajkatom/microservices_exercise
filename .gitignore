@@ -2,7 +2,11 @@ node_modules
 .vscode
 .DS_store
 key
+<<<<<<< HEAD
 keys.pem
 keys.key
 terraform.tfvars
 .terraform
+=======
+terraform.tfvars
+>>>>>>> 00d93841c31c9174730c2d5c8490b9fd5440349c
