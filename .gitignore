@@ -1,0 +1,8 @@
+node_modules
+.vscode
+.DS_store
+key
+keys.pem
+keys.key
+terraform.tfvars
+.terraform
