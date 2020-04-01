@@ -4,7 +4,7 @@ resource "aws_db_subnet_group" "privet" {
   subnet_ids = [aws_subnet.microsevrices-demo-privet-1-subnet.id, aws_subnet.microsevrices-demo-privet-2-subnet.id]
 
   tags = {
-    Name = "Privet Db Subnet Group "
+    Name = "Privet DB Subnet Group "
   }
 }
 
@@ -28,19 +28,18 @@ resource "aws_route_table" "public" {
 
 resource "aws_route_table_association" "microservices-demo-public-subnet" {
   subnet_id      = aws.subnet.microsevrices-demo-public-subnet.id
-  route_table_id = aws_rout_table.public.id
-
+  route_table_id = aws_route_table.public.id
 }
 
 resource "aws_security_group" "allow-internal-http" {
   name = "allow-internal-http"
-  description = "Allow internal HTTP request"
+  description = "Allow internal HTTP requests"
   vpc_id = aws_vpc.microservices-demo.id
-
+  
   ingress {
     from_port = 80
     to_port = 80
-    protocol "tcp"
+    protocol="tcp"
     cidr_blocks = [aws_vpc.microservices-demo.cider_block]
   }
 }
@@ -49,11 +48,11 @@ resource "aws_security_group" "allow-internal-mysql" {
   name = "allow-internal-mysql"
   description = "Allow internal MySQL request"
   vpc_id = aws_vpc.microservices-demo.id
-
+ 
   ingress {
     from_port = 3306
     to_port = 3306
-    protocol "tcp"
+    protocol="tcp"
     cidr_blocks = [aws_vpc.microservices-demo.cider_block]
   }
 }
@@ -62,11 +61,11 @@ resource "aws_security_group" "allow-http" {
   name = "allow-http-traffic"
   description = "Allow HTTP inbound traffic"
   vpc_id = aws_vpc.microservices-demo.id
-
+ 
   ingress {
     from_port = 80
     to_port = 80
-    protocol "tcp"
+    protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -75,11 +74,11 @@ resource "aws_security_group" "allow-ssh" {
   name = "allow-ssh"
   description = "Allow SSH inbound traffic"
   vpc_id = aws_vpc.microservices-demo.id
-
+ 
   ingress {
     from_port = 20
     to_port = 20
-    protocol "tcp"
+    protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -88,11 +87,11 @@ resource "aws_security_group" "allow-all-outbound" {
   name = "allow-all-outbound"
   description = "Allow all outbound traffic"
   vpc_id = aws_vpc.microservices-demo.id
-
+ 
   ingress {
     from_port = 0
     to_port = 0
-    protocol "-1"
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -128,16 +127,13 @@ resource "aws_subnet" "microsevrices-demo-privet-2-subnet" {
   }
 }
 
-
-
-
 resource "aws_vpc" "microsevrices-demo" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
 
 
   tags = {
-    Name = "Microservecies Demo Vpc"
+    Name = "Microservecies Demo VPC"
   }
 
 }
