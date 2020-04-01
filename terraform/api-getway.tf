@@ -7,7 +7,7 @@ module "api-gateway" {
 
   ami-id    = "ami-0fc61db8544a617ed"
   key-pair  = aws_key_pair.demo-key.key_name
-  name      = "api-getway"
+  name      = "api-gateway"
   subnet-id = aws_subnet.microservices-demo-public-subnet.id
   vpc-security-group-ids = [
     aws_security_group.allow-http.id,

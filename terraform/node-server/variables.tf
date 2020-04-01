@@ -19,7 +19,7 @@ variable "key-pair" {
   type = string
 }
 
-variable "privet-ip" {
+variable "private-ip" {
   default = ""
   type    = string
 }

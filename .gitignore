@@ -5,4 +5,5 @@ key
 keys.pem
 keys.key
 terraform.tfvars
+terraform.tfvars.backup
 .terraform
