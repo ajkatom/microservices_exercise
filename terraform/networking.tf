@@ -1,11 +1,11 @@
 
 
-resource "aws_db_subnet_group" "privet" {
-  name       = "microservices-demo-db-subnet-privet-group"
-  subnet_ids = [aws_subnet.microservices-demo-privet-1-subnet.id, aws_subnet.microservices-demo-privet-2-subnet.id]
+resource "aws_db_subnet_group" "private" {
+  name       = "microservices-demo-db-subnet-private-group"
+  subnet_ids = [aws_subnet.microservices-demo-private-1-subnet.id, aws_subnet.microservices-demo-private-2-subnet.id]
 
   tags = {
-    Name = "Privet DB Subnet Group "
+    Name = "private DB Subnet Group "
   }
 }
 
@@ -77,8 +77,8 @@ resource "aws_security_group" "allow-ssh" {
   vpc_id      = aws_vpc.microservices-demo.id
 
   ingress {
-    from_port   = 20
-    to_port     = 20
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -89,7 +89,7 @@ resource "aws_security_group" "allow-all-outbound" {
   description = "Allow all outbound traffic"
   vpc_id      = aws_vpc.microservices-demo.id
 
-  ingress {
+  egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -109,22 +109,22 @@ resource "aws_subnet" "microservices-demo-public-subnet" {
     Name = "Microservices Demo Public Subnet"
   }
 }
-resource "aws_subnet" "microservices-demo-privet-1-subnet" {
+resource "aws_subnet" "microservices-demo-private-1-subnet" {
   availability_zone_id = "use1-az1"
   cidr_block           = "10.0.1.0/24"
   vpc_id               = aws_vpc.microservices-demo.id
 
   tags = {
-    Name = "Microservices Demo Privet 1 Subnet"
+    Name = "Microservices Demo private 1 Subnet"
   }
 }
-resource "aws_subnet" "microservices-demo-privet-2-subnet" {
+resource "aws_subnet" "microservices-demo-private-2-subnet" {
   availability_zone_id = "use1-az2"
   cidr_block           = "10.0.2.0/24"
   vpc_id               = aws_vpc.microservices-demo.id
 
   tags = {
-    Name = "Microservices Demo Privet 2 Subnet"
+    Name = "Microservices Demo private 2 Subnet"
   }
 }
 
