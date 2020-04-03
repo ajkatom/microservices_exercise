@@ -27,7 +27,7 @@ module "users-service-db" {
   identifier             = "users-service-db"
   password               = var.users-service-db-password
   publicly-accessible    = false
-  user-name               = var.users-service-db-username
+  user-name              = var.users-service-db-username
   vpc-security-group-ids = [aws_security_group.allow-internal-mysql.id]
 
 }
