@@ -6,6 +6,6 @@ keys.pem
 keys.key
 terraform.tfvars
 terraform.tfstate
-terraform.tfvars.backup
+terraform.tfstate.backup
 .terraform
 /dist/
