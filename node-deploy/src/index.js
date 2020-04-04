@@ -9,7 +9,7 @@ const util = require('util');
 const deploymentDir = process.argv[2];
 const deploymentDirName = path.basename(deploymentDir);
 
-const rel = relPath => path.resolve(deploymentDir, relPath);
+const rel = (relPath) => path.resolve(deploymentDir, relPath);
 
 const tfFilePath = rel('../../terraform/terraform.tfstate');
 
@@ -54,7 +54,7 @@ const rootDir = rel('../');
 
 (async () => {
   console.log('Loading in 5 sec...');
-  await new Promise(resolve => setTimeout(resolve, 5000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
 
   const lockFilePath = rel('../deloy.lock');
   console.log('Checking for lock file');
@@ -83,19 +83,22 @@ const rootDir = rel('../');
   const zipPath = `tmp/${filename}`;
   await exec(
     `zip -r ${zipPath} . -x terraform/\\* -x node_modules/\\* -x \\*/node_modules/\\* -x \\*/.cache/\\* -x .git/\\*`,
-    {cwd: rootDir, maxBuffer: MAX_BUFFER_SIZE}
+    { cwd: rootDir, maxBuffer: MAX_BUFFER_SIZE }
   );
 
   console.log('Uploding deployment file...');
-  await s3Client.putObject({
-    body: fs.createReadStream(zipPath),
-    Bucket : outputs[`${APPLICATION_NAME}-deployment-bucket-name`].value,
-    key: filename,
-  }).promise();
+  await s3Client
+    .putObject({
+      body: fs.createReadStream(zipPath),
+      Bucket: outputs[`${APPLICATION_NAME}-deployment-bucket-name`].value,
+      key: filename,
+    })
+    .promise();
 
   console.log(`Upload of deployment file: ${filename} complete`);
 
   console.log(`Removing local copy of deployment file`);
   fs.unlinkSync(zipPath);
 
+  console.log('Deploying Application...');
 })();
