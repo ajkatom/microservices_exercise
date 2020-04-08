@@ -101,4 +101,25 @@ const rootDir = rel('../');
   fs.unlinkSync(zipPath);
 
   console.log('Deploying Application...');
+
+  await codeDeployClient
+    .createDeployment({
+      applicationName: outputs[`${APPLICATION_NAME}-deployment-app-name`].value,
+      deploymentGroupName: accessEnv('CODEDEPLOY_DEPLOYMENT_GROUP_NAME'),
+      revision: {
+        revisionType: 'S3',
+        s3Location: {
+          bucket: outputs[`${APPLICATION_NAME}-deployment-bucket-name`].value,
+          bundleType: 'zip',
+          key: filename,
+        },
+      },
+    })
+    .promise();
+
+  console.log('CodeDeploy deployment initiated');
+
+  console.log('Cleaning up...');
+  fs.unlinkSync('../deploy.lock');
+  fs.unlinkSync('../appspec.yml');
 })();
