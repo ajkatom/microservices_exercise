@@ -5,16 +5,25 @@ resource "aws_eip" "listing-service-eip" {
 module "listing-service" {
   source = "./node-server"
 
-  ami-id     = "ami-0fc61db8544a617ed"
-  key-pair   = aws_key_pair.demo-key.key_name
-  name       = "listing-service"
-  private-ip = "10.0.1.5"
-  subnet-id  = aws_subnet.microservices-demo-private-1-subnet.id
+  ami-id               = "ami-0fc61db8544a617ed"
+  iam-instance-profile = module.listing-service-codedeploy.iam-instance-profile
+  key-pair             = aws_key_pair.demo-key.key_name
+  name                 = "listing-service"
+  private-ip           = "10.0.1.5"
+  subnet-id            = aws_subnet.microservices-demo-private-1-subnet.id
   vpc-security-group-ids = [
     aws_security_group.allow-internal-http.id,
     aws_security_group.allow-ssh.id,
     aws_security_group.allow-all-outbound.id
   ]
+
+}
+
+module "listing-service-codedeploy" {
+  source = "./codedeploy-app"
+
+  app-name          = "listing-service"
+  ec2-instance-name = module.listing-service.name
 
 }
 
