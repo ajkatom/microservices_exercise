@@ -9,4 +9,5 @@ terraform.tfvars
 /dist/
 *.tfstate
 *.tfstate.*
-*.env
+.env
+.deploy.env
