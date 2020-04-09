@@ -104,7 +104,7 @@ const rootDir = rel('../');
 
   await codeDeployClient
     .createDeployment({
-      applicationName: outputs[`${APPLICATION_NAME}-deployment-app-name`].value,
+      applicationName: outputs[`${APPLICATION_NAME}-codedeploy-app-name`].value,
       deploymentGroupName: accessEnv('CODEDEPLOY_DEPLOYMENT_GROUP_NAME'),
       revision: {
         revisionType: 'S3',
