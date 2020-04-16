@@ -1,6 +1,6 @@
-#!usr/bin/env node
+#!/usr/local/bin/node
 const AWS = require('aws-sdk');
-const child_porcess = require('child_porcess');
+const child_process = require('child_process');
 const { format } = require('date-fns');
 const fs = require('fs');
 const path = require('path');
@@ -11,7 +11,7 @@ const deploymentDirName = path.basename(deploymentDir);
 
 const rel = (relPath) => path.resolve(deploymentDir, relPath);
 
-const tfFilePath = rel('../../terraform/terraform.tfstate');
+const tfFilePath = rel('../terraform/terraform.tfstate');
 
 if (!fs.existsSync(tfFilePath)) {
   throw new Error(
@@ -25,9 +25,9 @@ require('dotenv').config({ path: rel('./.deploy.env') });
 
 const accessEnv = require('./helpers/accessEnv');
 
-const exec = util.promisify(child_porcess.exec);
+const exec = util.promisify(child_process.exec);
 
-const getFullDateTime = () => format(new Date(), yyyyMMddHHmms);
+const getFullDateTime = () => format(new Date(), 'yyyyMMddHHmms');
 
 const APPLICATION_NAME = accessEnv('APPLICATION_NAME');
 
@@ -53,10 +53,10 @@ const s3Client = new AWS.S3({
 const rootDir = rel('../');
 
 (async () => {
-  console.log('Loading in 5 sec...');
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+  console.log('Loading in 3 sec...');
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
-  const lockFilePath = rel('../deloy.lock');
+  const lockFilePath = rel('../deploy.lock');
   console.log('Checking for lock file');
   if (fs.existsSync(lockFilePath)) {
     console.error('Deploy.lock file exists ,halting');
@@ -70,19 +70,19 @@ const rootDir = rel('../');
   );
 
   console.log('Checking enviornment...');
-  if (fs.existsSync(rel('.production.env'))) {
+  if (!fs.existsSync(rel('.production.env'))) {
     console.error('no production.env file found exiting ');
     process.exit();
   }
 
   console.log('Copying appspec file');
-  fs.copyFileSync(rel('./appspec.yml', rel('../appspec.yml')));
+  fs.copyFileSync(rel('./appspec.yml'), rel('../appspec.yml'));
 
   console.log('Creating deplyoment file');
   const filename = `${deploymentDirName}-deployment-${getFullDateTime()}.zip`;
   const zipPath = `tmp/${filename}`;
   await exec(
-    `zip -r ${zipPath} . -x terraform/\\* -x node_modules/\\* -x \\*/node_modules/\\* -x \\*/.cache/\\* -x .git/\\*`,
+    `zip -r ${zipPath} . -x terraform/\\* -x node_modules/\\* -x \\*/node_modules/\\* -x \\*/.cache/\\* -x .git/\\* -x \\*.DS_Store`,
     { cwd: rootDir, maxBuffer: MAX_BUFFER_SIZE }
   );
 
