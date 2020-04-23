@@ -80,18 +80,18 @@ const rootDir = rel('../');
 
   console.log('Creating deplyoment file');
   const filename = `${deploymentDirName}-deployment-${getFullDateTime()}.zip`;
-  const zipPath = `tmp/${filename}`;
+  const zipPath = `/tmp/${filename}`;
   await exec(
-    `zip -r ${zipPath} . -x terraform/\\* -x node_modules/\\* -x \\*/node_modules/\\* -x \\*/.cache/\\* -x .git/\\* -x \\*.DS_Store`,
+    `zip -r ${zipPath} . -x terraform/\\* -x node_modules/\\* -x \\*/node_modules/\\* -x \\*/.cache/\\* -x .git/\\*`,
     { cwd: rootDir, maxBuffer: MAX_BUFFER_SIZE }
   );
 
   console.log('Uploding deployment file...');
   await s3Client
     .putObject({
-      body: fs.createReadStream(zipPath),
+      Body: fs.createReadStream(zipPath),
       Bucket: outputs[`${APPLICATION_NAME}-deployment-bucket-name`].value,
-      key: filename,
+      Key: filename,
     })
     .promise();
 
