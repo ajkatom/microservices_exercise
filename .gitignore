@@ -11,3 +11,4 @@ terraform.tfvars
 *.tfstate.*
 .env
 .deploy.env
+.production.env
