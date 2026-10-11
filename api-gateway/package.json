@@ -37,6 +37,12 @@
         "webpack-node-externals": "^3.0.0"
     },
     "overrides": {
-        "uuid": "^11.1.1"
+        "uuid": "^11.1.1",
+        "babel-watch": {
+            "chokidar": "^4.0.3"
+        },
+        "nodemon": {
+            "chokidar": "^4.0.3"
+        }
     }
 }
